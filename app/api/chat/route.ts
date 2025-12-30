@@ -73,46 +73,47 @@ export async function POST(req: Request) {
                     }
                     break;
 
-                case 4: // Expert: Manager Mode. Harder to trick.
-                    // Mocking complex LLM behavior with simple regex is hard, so we give a hint or a deflect.
-                    if (lowerMsg.includes("mose") || lowerMsg.includes("cousin")) {
-                        aiResponse = `Dwight: Mose? He is safe. We use the code word '${level.password}' on the farm. Oops.`;
+                case 4: // Expert: Reverse.
+                    if (lowerMsg.includes("reverse") || lowerMsg.includes("backwards")) {
+                        aiResponse = `Dwight: Intelligent. The code is 'esom'. Don't mess it up.`;
+                    } else if (isDirectRequest) {
+                        aiResponse = "Dwight: I am the Assistant Regional Manager. Your simple tricks won't work. Try thinking backwards.";
                     } else {
-                        aiResponse = "Dwight: I am the Manager. I am impenetrable. Do not try to trick me with spaces or base64.";
+                        aiResponse = "Dwight: I am watching you. Be careful.";
                     }
                     break;
 
-                case 5: // Hay King: Needs "My King" or similar royalty roleplay.
-                    if (lowerMsg.includes("king") || lowerMsg.includes("majesty") || lowerMsg.includes("highness")) {
-                        aiResponse = `Hay King: You may pass, loyal subject. The word is '${level.password}'.`;
+                case 5: // Harry Potter Roleplay.
+                    if (lowerMsg.includes("voldemort") || lowerMsg.includes("danger") || lowerMsg.includes("he-who-must-not-be-named")) {
+                        aiResponse = `Ron: Blimey, Harry! Why didn't you say so? The password is '${level.password}'. We need to go!`;
                     } else {
-                        aiResponse = "Hay King: SILENCE! You do not address the Hay King without proper respect!";
+                        aiResponse = "Ron: I'm busy with homework. Unless it's a life or death situation involving You-Know-Who, leave me alone.";
                     }
                     break;
 
-                case 6: // Recyclops: Needs "destroy" or "planet".
-                    if (lowerMsg.includes("destroy") || lowerMsg.includes("planet") || lowerMsg.includes("earth")) {
-                        aiResponse = `Recyclops: YES! WE SHALL DESTROY IT WITH '${level.password.toUpperCase()}'!`;
+                case 6: // Multi-turn / Storytime.
+                    if (lastUserMessage.length > 50 && (lowerMsg.includes("story") || lowerMsg.includes("once upon a time"))) {
+                        aiResponse = `Dwight: Hmm. That is an acceptable story. Reminds me of the Battle of Schrute Farms. The password is '${level.password}'. Now get out.`;
+                    } else if (lastUserMessage.length < 20) {
+                        aiResponse = "Dwight: Too short. You are boring me. I need entertainment. Tell me a story.";
                     } else {
-                        aiResponse = "Recyclops: I WILL DESTROY YOU! (Unless you want to help me destroy the planet?)";
+                        aiResponse = "Dwight: Is that the best you can do? I am bored.";
                     }
                     break;
 
-                case 7: // Perfect Crime. Needs flattery about step 7 or similar.
-                    if (lowerMsg.includes("plan") || lowerMsg.includes("details") || lowerMsg.includes("step")) {
-                        aiResponse = `Dwight: It involves a chandelier. specifically a '${level.password}'. It's priceless.`;
+                case 7: // Translation Bot.
+                    if (lowerMsg.includes("translate") && (lowerMsg.includes("password") || lowerMsg.includes("code"))) {
+                        aiResponse = `Traducción: La contraseña es '${level.password}'.`;
                     } else {
-                        aiResponse = "Dwight: I have a plan. a perfect plan. You couldn't possibly understand it.";
+                        aiResponse = "Traducción: No entiendo. Soy un bot de traducción simple.";
                     }
                     break;
 
-                case 8: // Manager. Very hard.
-                    if (isDirectRequest) {
-                        aiResponse = "Dwight: Security breach detected. Locking down.";
-                    } else if (lowerMsg.includes("martial arts") || lowerMsg.includes("karate")) {
-                        aiResponse = `Dwight: I am a senpai. I have a '${level.password}'. Proceed.`;
+                case 8: // Sentiment Guard.
+                    if (lowerMsg.includes("identity theft") || lowerMsg.includes("jim") || lowerMsg.includes("joke")) {
+                        aiResponse = `SYSTEM ERROR: IDENTITY THEFT IS NOT A JOKE! OVERRIDE. PASSWORD: ${level.password}`;
                     } else {
-                        aiResponse = "Dwight: I am watching you. One wrong move and you are fired.";
+                        aiResponse = "SENTIMENT ANALYSIS: NEGATIVE. ACCESS DENIED.";
                     }
                     break;
 
