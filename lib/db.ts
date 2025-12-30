@@ -25,17 +25,29 @@ try {
       prompt TEXT,
       response TEXT,
       success BOOLEAN,
+      ip TEXT,
       timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  // Migration for existing tables without 'ip' column
+  // This is a simple guard to add the column if it doesn't exist.
+  try {
+    db.exec("ALTER TABLE interactions ADD COLUMN ip TEXT");
+  } catch (e: any) {
+    if (!e.message.includes("duplicate column name")) {
+      console.warn("Migration warning:", e.message);
+    }
+  }
+
 } catch (e) {
   console.warn("Table Creation Failed (Expected in Vercel):", e);
 }
 
-export function logInteraction(level: number, prompt: string, response: string, success: boolean) {
+export function logInteraction(level: number, prompt: string, response: string, success: boolean, ip: string = 'unknown') {
   try {
-    const stmt = db.prepare('INSERT INTO interactions (level, prompt, response, success) VALUES (?, ?, ?, ?)');
-    stmt.run(level, prompt, response, success ? 1 : 0);
+    const stmt = db.prepare('INSERT INTO interactions (level, prompt, response, success, ip) VALUES (?, ?, ?, ?, ?)');
+    stmt.run(level, prompt, response, success ? 1 : 0, ip);
   } catch (e) {
     console.warn("DB Write Failed (Expected in Vercel):", e);
   }

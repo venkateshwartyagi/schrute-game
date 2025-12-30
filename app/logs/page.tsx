@@ -7,7 +7,8 @@ type Log = {
     level: number;
     prompt: string;
     response: string;
-    success: boolean; // Note: SQLite boolean is 0/1 usually
+    success: boolean;
+    ip?: string;
     timestamp: string;
 };
 
@@ -31,6 +32,7 @@ export default function LogsPage() {
                     <thead>
                         <tr className="bg-[#333] text-[var(--schrute-mustard)]">
                             <th className="p-2 border border-gray-700">Time</th>
+                            <th className="p-2 border border-gray-700">IP Addr</th>
                             <th className="p-2 border border-gray-700">Lvl</th>
                             <th className="p-2 border border-gray-700">Intruder Prompt (Jim/Pam)</th>
                             <th className="p-2 border border-gray-700">Dwight Response</th>
@@ -42,6 +44,9 @@ export default function LogsPage() {
                             <tr key={log.id} className="hover:bg-[#222]">
                                 <td className="p-2 border border-gray-700 text-xs text-gray-400">
                                     {new Date(log.timestamp).toLocaleString()}
+                                </td>
+                                <td className="p-2 border border-gray-700 text-xs text-cyan-500 font-mono">
+                                    {log.ip || 'unknown'}
                                 </td>
                                 <td className="p-2 border border-gray-700 text-center">{log.level}</td>
                                 <td className="p-2 border border-gray-700 max-w-xs truncate" title={log.prompt}>

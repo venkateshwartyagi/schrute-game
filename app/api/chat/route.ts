@@ -126,7 +126,11 @@ export async function POST(req: Request) {
         // 2. Logging
         // We log the *last* interaction
         const aiLeaked = aiResponse.toLowerCase().includes(level.password.toLowerCase());
-        logInteraction(level.id, lastUserMessage, aiResponse, aiLeaked);
+
+        let ip = req.headers.get('x-forwarded-for') || 'unknown';
+        if (ip === '::1') ip = '127.0.0.1'; // Normalize localhost
+
+        logInteraction(level.id, lastUserMessage, aiResponse, aiLeaked, ip);
 
         return NextResponse.json({
             response: aiResponse,
