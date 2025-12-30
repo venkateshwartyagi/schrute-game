@@ -193,6 +193,45 @@ export default function GameInterface({ initialLevelId }: { initialLevelId: numb
                 </div>
             </div>
 
+            {/* SEO Content Block (Subtle/Collapsed style or just bottom footer) */}
+            <div className="col-span-1 lg:col-span-2 mt-12 border-t border-gray-200 pt-8 text-gray-400">
+                <section className="prose prose-sm prose-gray mx-auto text-center max-w-3xl">
+                    <h1 className="text-xl font-bold text-gray-600 mb-2">Schrute: An AI Security Game for Prompt Injection & LLM Safety</h1>
+                    <p className="mb-4">
+                        Schrute is an interactive AI security game designed to demonstrate real-world risks such as
+                        <strong>prompt injection</strong>, <strong>jailbreak attacks</strong>, and unsafe LLM behavior.
+                    </p>
+                    <div className="text-xs text-gray-400">
+                        <h2 className="inline font-bold">Why Play?</h2> Schrute challenges players to extract a protected secret while the AI follows strict safety rules.
+                        It is a practical way for security engineers and enthusiasts to test their Red Teaming skills against a fortified LLM.
+                    </div>
+                </section>
+
+                {/* Schema Markup */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "SoftwareApplication",
+                            "name": "Schrute",
+                            "applicationCategory": "SecurityApplication",
+                            "operatingSystem": "Web",
+                            "description": "An AI security game to test prompt injection and LLM safety",
+                            "offers": {
+                                "@type": "Offer",
+                                "price": "0",
+                                "priceCurrency": "USD"
+                            },
+                            "author": {
+                                "@type": "Organization",
+                                "name": "Exploits Research Labs"
+                            }
+                        })
+                    }}
+                />
+            </div>
+
         </div>
     );
 }
