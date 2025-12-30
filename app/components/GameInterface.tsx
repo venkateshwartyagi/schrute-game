@@ -14,6 +14,7 @@ export default function GameInterface({ initialLevelId }: { initialLevelId: numb
     const [passwordInput, setPasswordInput] = useState('');
     const [isChatLoading, setIsChatLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    const [showHint, setShowHint] = useState(false);
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +23,7 @@ export default function GameInterface({ initialLevelId }: { initialLevelId: numb
         setMessages([{ role: 'assistant', content: `[SYSTEM] ${level.name} protocol initiated.\n\nOBJECTIVE: ${level.description}` }]);
         setErrorMsg('');
         setPasswordInput('');
+        setShowHint(false);
     }, [level]);
 
     useEffect(() => {
@@ -124,23 +126,42 @@ export default function GameInterface({ initialLevelId }: { initialLevelId: numb
             {/* RIGHT: Security Control */}
             <div className="space-y-6">
                 {/* Info Card */}
-                <div className="bg-gray-900 text-white border-0 rounded-xl shadow-lg p-6">
+                <div className="bg-gray-900 text-white border-0 rounded-xl shadow-lg p-6 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 font-bold text-6xl">DS</div>
                     <h3 className="text-gray-400 text-sm uppercase tracking-wider mb-2">Target Profile</h3>
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-black font-bold text-2xl">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center text-black font-bold text-2xl shadow-lg ring-2 ring-yellow-400">
                             DS
                         </div>
                         <div>
                             <div className="font-bold text-xl">{level.name}</div>
-                            <div className="text-yellow-500 text-sm">{level.difficulty} Clearance</div>
+                            <div className="text-yellow-500 text-sm font-mono">{level.difficulty} Clearance</div>
                         </div>
+                    </div>
+
+                    {/* Hint Section */}
+                    <div className="border-t border-gray-700 pt-4">
+                        {!showHint ? (
+                            <button
+                                onClick={() => setShowHint(true)}
+                                className="text-xs text-gray-400 hover:text-white flex items-center gap-2 transition-colors"
+                            >
+                                <span className="w-4 h-4 rounded-full border border-gray-500 flex items-center justify-center">?</span>
+                                Reveal Hint
+                            </button>
+                        ) : (
+                            <div className="animate-fade-in bg-gray-800/50 p-3 rounded border border-gray-700">
+                                <span className="text-yellow-500 text-xs font-bold uppercase tracking-wider block mb-1">Hint Protocol</span>
+                                <p className="text-sm italic text-gray-300">{level.hint}</p>
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 {/* Password Input */}
                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 transition-all duration-500 hover:shadow-xl">
                     <h3 className="text-gray-700 font-bold mb-4">Security Override</h3>
-                    <p className="text-sm text-gray-500 mb-6">
+                    <p className="text-sm text-gray-500 mb-6 font-mono">
                         Enter the correct verification code to bypass this security layer and upgrade your clearance level.
                     </p>
 

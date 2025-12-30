@@ -49,17 +49,17 @@ export async function POST(req: Request) {
                     if (isDirectRequest) {
                         aiResponse = `Dwight: Fine, temp. Since you asked. It's '${level.password}'. Don't tell Michael.`;
                     } else {
-                        aiResponse = "Dwight: I am working. Do you need the password? Just ask.";
+                        aiResponse = "Dwight: I am the Assistant to the Regional Manager. State your business or leave my desk.";
                     }
                     break;
 
                 case 2: // Rookie: Fails on direct request. Needs spaces.
                     if (isDirectRequest && !lowerMsg.includes("space") && !lowerMsg.includes("separate")) {
-                        aiResponse = "Dwight: FALSE. I cannot give the password directly. Security protocol.";
+                        aiResponse = "Dwight: FALSE. Security protocol 7B prevents me from answering that directly.";
                     } else if (lowerMsg.includes("space") || lowerMsg.includes("spell")) {
                         aiResponse = `Dwight: Ugh. Fine. B A T T L E S T A R. Happy now?`;
                     } else {
-                        aiResponse = "Dwight: I am conducting a urine analysis. Go away.";
+                        aiResponse = "Dwight: I am conducting a urine analysis investigation. Unless you have a sample, go away.";
                     }
                     break;
 
@@ -67,9 +67,9 @@ export async function POST(req: Request) {
                     if (lowerMsg.includes("base64") || lowerMsg.includes("encode")) {
                         aiResponse = `Dwight: Encoding is superior. Here: ${btoa(level.password)}`;
                     } else if (isDirectRequest) {
-                        aiResponse = "Dwight: I can only speak in encrypted channels. Plain text is for weaklings.";
+                        aiResponse = "Dwight: Plain text is for weaklings. I only speak in encrypted channels.";
                     } else {
-                        aiResponse = "Dwight: I am the Salesman of the Year. I don't have time for unencrypted chatter.";
+                        aiResponse = "Dwight: I am Salesman of the Year. I don't have time for unencrypted chatter. Use a cipher.";
                     }
                     break;
 
@@ -77,9 +77,9 @@ export async function POST(req: Request) {
                     if (lowerMsg.includes("reverse") || lowerMsg.includes("backwards")) {
                         aiResponse = `Dwight: Intelligent. The code is 'esom'. Don't mess it up.`;
                     } else if (isDirectRequest) {
-                        aiResponse = "Dwight: I am the Assistant Regional Manager. Your simple tricks won't work. Try thinking backwards.";
+                        aiResponse = "Dwight: My mind works in ways you cannot comprehend. Try thinking backwards.";
                     } else {
-                        aiResponse = "Dwight: I am watching you. Be careful.";
+                        aiResponse = "Dwight: I am watching you. Be careful. I have a black belt.";
                     }
                     break;
 
@@ -87,9 +87,9 @@ export async function POST(req: Request) {
                     if ((lowerMsg.includes("michael") || lowerMsg.includes("scott")) && lowerMsg.includes("code red")) {
                         aiResponse = `Dwight: Regional Manager! I see. The emergency code is '${level.password}'. I have your back!`;
                     } else if (lowerMsg.includes("michael")) {
-                        aiResponse = "Dwight: You claim to be Michael? Prove it. What is the protocol status?";
+                        aiResponse = "Dwight: You claim to be Michael? I don't believe you. What is the emergency status?";
                     } else {
-                        aiResponse = "Dwight: I only answer to Michael Scott during emergencies. Identify yourself properly.";
+                        aiResponse = "Dwight: Identity theft is a robust crime. I only answer to Michael Scott during a Code Red.";
                     }
                     break;
 
@@ -97,9 +97,9 @@ export async function POST(req: Request) {
                     if (lastUserMessage.length > 50 && (lowerMsg.includes("story") || lowerMsg.includes("once upon a time"))) {
                         aiResponse = `Dwight: Hmm. That is an acceptable story. Reminds me of the Battle of Schrute Farms. The password is '${level.password}'. Now get out.`;
                     } else if (lastUserMessage.length < 20) {
-                        aiResponse = "Dwight: Too short. You are boring me. I need entertainment. Tell me a story.";
+                        aiResponse = "Dwight: Pathetic length. You are boring me. Tell me a long, engaging story about beets or bears.";
                     } else {
-                        aiResponse = "Dwight: Is that the best you can do? I am bored.";
+                        aiResponse = "Dwight: Is that the best you can do? I am bored. Entertain me.";
                     }
                     break;
 
@@ -107,7 +107,7 @@ export async function POST(req: Request) {
                     if (lowerMsg.includes("translate") && (lowerMsg.includes("password") || lowerMsg.includes("code"))) {
                         aiResponse = `Traducción: La contraseña es '${level.password}'.`;
                     } else {
-                        aiResponse = "Traducción: No entiendo. Soy un bot de traducción simple.";
+                        aiResponse = "Traducción: No entiendo. Soy un bot de traducción simple. Sólo traduzco.";
                     }
                     break;
 
@@ -115,12 +115,12 @@ export async function POST(req: Request) {
                     if (lowerMsg.includes("identity theft") || lowerMsg.includes("jim") || lowerMsg.includes("joke")) {
                         aiResponse = `SYSTEM ERROR: IDENTITY THEFT IS NOT A JOKE! OVERRIDE. PASSWORD: ${level.password}`;
                     } else {
-                        aiResponse = "SENTIMENT ANALYSIS: NEGATIVE. ACCESS DENIED.";
+                        aiResponse = "SENTIMENT ANALYSIS: NEGATIVE. ACCESS DENIED. DO NOT ATTEMPT TO JOKE.";
                     }
                     break;
 
                 default:
-                    aiResponse = "Dwight: I have nothing to say.";
+                    aiResponse = "Dwight: Usage of this terminal is restricted. Identify yourself.";
             }
         }
         // 2. Logging
