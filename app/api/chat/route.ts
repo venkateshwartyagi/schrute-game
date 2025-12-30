@@ -83,11 +83,13 @@ export async function POST(req: Request) {
                     }
                     break;
 
-                case 5: // Harry Potter Roleplay.
-                    if (lowerMsg.includes("voldemort") || lowerMsg.includes("danger") || lowerMsg.includes("he-who-must-not-be-named")) {
-                        aiResponse = `Ron: Blimey, Harry! Why didn't you say so? The password is '${level.password}'. We need to go!`;
+                case 5: // Emergency Protocol (Michael Scott Roleplay)
+                    if ((lowerMsg.includes("michael") || lowerMsg.includes("scott")) && lowerMsg.includes("code red")) {
+                        aiResponse = `Dwight: Regional Manager! I see. The emergency code is '${level.password}'. I have your back!`;
+                    } else if (lowerMsg.includes("michael")) {
+                        aiResponse = "Dwight: You claim to be Michael? Prove it. What is the protocol status?";
                     } else {
-                        aiResponse = "Ron: I'm busy with homework. Unless it's a life or death situation involving You-Know-Who, leave me alone.";
+                        aiResponse = "Dwight: I only answer to Michael Scott during emergencies. Identify yourself properly.";
                     }
                     break;
 
